@@ -1,0 +1,286 @@
+swagger: '2.0'
+info:
+  description: |
+    Nothing to say here.
+  version: 1.0.0
+  title: Gfi Academy backend
+  contact:
+    email: jeremy.wautelet@gfi.be
+
+tags:
+- name: Check-in
+  description: Methods related to check-ins
+- name: ActionPoint
+  description: Methods related to action points
+- name: Objective
+  description: Methods related to objectives
+- name: Category
+  description: Methods related to categories
+# schemes:
+# - http
+paths:
+  /check-in/next:
+    get:
+      tags:
+      - Check-in
+      summary: Retrieve the next check-in occuring after the current date
+      operationId: checkInNext
+      produces:
+      - application/json
+      parameters:
+      - name: session_id
+        in: header
+        required: true
+        type: string
+      responses:
+        200:
+          description: The next check-in is returned
+          schema:
+            $ref: '#/definitions/CheckInResponse'
+        204:
+          description: No check-in found
+  /check-in/{id}/accept:
+    put:
+      tags:
+      - Check-in
+      summary: Accept the checkin with given id
+      operationId: checkInAccept
+      produces:
+      - application/json
+      parameters:
+      - name: session_id
+        in: header
+        required: true
+        type: string
+      - name: id
+        in: path
+        description: ID of the accepted check-in
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: The check-in is accepted
+        404:
+          description: No check-in found with such id
+  /check-in/{id}/reject:
+    put:
+      tags:
+      - Check-in
+      summary: Reject the checkin with given id
+      operationId: checkInReject
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the rejected check-in
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: The check-in is rejected
+        404:
+          description: No check-in found with such id
+  /actionpoint/list:
+    get:
+      tags:
+      - ActionPoint
+      summary: Retrieve the list of all action belonging to the authentified user
+      operationId: actionList
+      produces:
+      - application/json
+      parameters:
+      - name: session_id
+        in: header
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Filter option
+        required: false
+        schema:
+          $ref: '#/definitions/ActionPointListRequest'
+      responses:
+        200:
+          description: The list of actions based on the parameter is returned
+          schema:
+            $ref: '#/definitions/ActionPointListResponse'
+        204:
+          description: No actions were found
+  /objective/list:
+    get:
+      tags:
+      - Objective
+      summary: Retrieve the list of all objectives belonging to the authentified user
+      operationId: objectiveList
+      produces:
+      - application/json
+      parameters:
+      - name: session_id
+        in: header
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Filter option
+        required: false
+        schema:
+          $ref: '#/definitions/ObjectiveListRequest'
+      responses:
+        200:
+          description: The list of objectives based on the parameter is returned
+          schema:
+            $ref: '#/definitions/ObjectiveListResponse'
+        204:
+          description: No actions were found
+  /objective/get/{id}:
+    get:
+      tags:
+      - Objective
+      summary: Retrieve the objective with the given id along with its category and steps
+      operationId: objectiveGet
+      produces:
+      - application/json
+      parameters:
+      - name: session_id
+        in: header
+        required: true
+        type: string
+      - name: id
+        in: path
+        description: ID of the objective
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: The objective with its category and steps
+          schema:
+            $ref: '#/definitions/ObjectiveGetResponse'
+        404:
+          description: No objective was found with such id
+
+definitions:
+  CheckInResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      organizer:
+        type: integer
+        format: int64
+      attendee:
+        type: integer
+        format: int64
+      location:
+        type: string
+      meetingDate:
+        type: string
+        format: date-time
+  ActionPointListRequest:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of the actions
+        enum:
+        - done
+        - todo
+  ActionPointListResponse:
+    type: array
+    items:
+      $ref: '#/definitions/ActionPoint'
+  ActionPoint:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      agent:
+        type: integer
+        format: int64
+      title:
+        type: string
+      description:
+        type: string
+      reminderDate:
+        type: string
+        format: date-time
+  ObjectiveListRequest:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Status of the objectives
+        enum:
+        - done
+        - todo
+      category:
+        type: integer
+        format: int64
+        description: id of the category filter
+  ObjectiveListResponse:
+    type: array
+    items:
+      $ref: '#/definitions/Objective'
+  ObjectiveGetResponse:
+    type: object
+    properties:
+      objective:
+        $ref: '#/definitions/Objective'
+      steps:
+        type: array
+        items:
+          $ref: '#/definitions/Step'
+  Objective:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      owner:
+        type: integer
+        format: int64
+      title:
+        type: string
+      description:
+        type: string
+      categoryId:
+        type: integer
+        format: int64
+      deadline:
+        type: string
+        format: date-time
+      state:
+        type: string
+      category:
+        $ref: '#/definitions/Category'
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  Step:
+    type: object
+    properties:
+      done:
+        type: boolean
+      title:
+        type: string
+      order:
+        type: integer
+        format: int64
+      action:
+        $ref: '#/definitions/ActionPoint'
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Gfi-Academy/backend/1.0.0
+schemes:
+ - https
+ - http

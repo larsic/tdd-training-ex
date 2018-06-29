@@ -1,0 +1,3 @@
+.swagger-codegen
+**/model
+**/api/*Api.java
