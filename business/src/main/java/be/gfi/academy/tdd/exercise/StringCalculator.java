@@ -9,7 +9,7 @@ public class StringCalculator {
      * Method to calculate the sum of numbers in a given string
      */
     public static final void add(){
-        String[] numbersArray = numbers.split(",");
+        //String[] numbersArray = numbers.split(",");
 
         //Test arguments are correct
         //If more than 3 numbers than runtime exception

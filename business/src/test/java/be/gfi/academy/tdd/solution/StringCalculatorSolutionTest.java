@@ -1,5 +1,6 @@
-package be.gfi.academy.tdd.solution;
+package java.be.gfi.academy.tdd.solution;
 
+import be.gfi.academy.tdd.solution.StringCalculatorSolution;
 import org.junit.*;
 /**
  * Created by BPCO on 17/06/2018.
