@@ -1,4 +1,4 @@
-package java.be.gfi.academy.tdd.solution;
+package be.gfi.academy.tdd.solution;
 
 import org.junit.*;
 
