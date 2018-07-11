@@ -14,7 +14,6 @@ public class StringCalculator {
         //Test arguments are correct
         //If more than 3 numbers than runtime exception
         //else If a not a valid number, than runtime exception
-
     }
 }
 

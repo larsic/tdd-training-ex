@@ -9,9 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>domain</module>
         <module>business</module>
-        <module>service</module>
     </modules>
 
     <properties>
