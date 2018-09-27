@@ -11,16 +11,14 @@ public class StringCalculatorTest {
 
     @Test(expected = RuntimeException.class)
     public final void whenMoreThan2NumbersAreUsedThenExceptionIsThrown() {
-        StringCalculator.add("1,2");
+        StringCalculator.add("1,2,3");
     }
-
-
 
     public final void when2NumbersAreUsedThenNoExceptionIsThrown() {
         Assert.assertTrue(true);
     }
 
-    public final void whenNtonNumberIsUsedThenExceptionIsThrown() {
+    public final void whenNonNumberIsUsedThenExceptionIsThrown() {
     }
 
 }

@@ -6,12 +6,12 @@ import org.junit.*;
  * Created by BPCO on 17/06/2018.
  */
 public class StringCalculatorSolutionTest {
-    /*
+
     @Test(expected = RuntimeException.class)
     public final void whenMoreThan2NumbersAreUsedThenExceptionIsThrown() {
-        StringCalculatorSolution.add("1,2,3");
+        //StringCalculatorSolution.add("1,2,3");
     }
-    */
+
 
     @Test
     public final void when2NumbersAreUsedThenNoExceptionIsThrown() {
